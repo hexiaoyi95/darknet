@@ -525,6 +525,11 @@ void network_detect(network *net, image im, float thresh, float hier_thresh, flo
         get_region_boxes(l, im.w, im.h, net->w, net->h, thresh, probs, boxes, 0, 0, 0, hier_thresh, 0);
         if (nms) do_nms_sort(boxes, probs, l.w*l.h*l.n, l.classes, nms);
     }
+    else if(l.type == DETECTION){
+        get_detection_boxes(l, 1, 1, thresh, probs, boxes, 0);
+        if (nms) do_nms(boxes, probs, l.w*l.h*l.n, l.classes, nms);
+    }
+    
 }
 
 float *network_predict_image(network *net, image im)

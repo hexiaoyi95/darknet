@@ -620,6 +620,22 @@ void flush_stream_buffer(CvCapture *cap, int n)
     }
 }
 
+CvCapture* get_capture(const char* filename){
+    CvCapture *cap;
+    if(filename){
+        printf(filename);
+        cap = cvCaptureFromFile(filename);
+    }
+    else
+        cap = cvCaptureFromCAM(0);
+    if(!cap)
+        printf("cannot open video stream\n");
+    else
+        printf("open video stream successfully\n");
+
+    return cap;
+}
+
 image get_image_from_stream(CvCapture *cap)
 {
     IplImage* src = cvQueryFrame(cap);
